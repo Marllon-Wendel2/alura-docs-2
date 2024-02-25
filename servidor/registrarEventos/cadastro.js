@@ -18,8 +18,9 @@ function registrarEventosCadastro(socket, io) {
         } else {
             socket.emit("usuario_ja_existente")
         }
-
+        socket.emit("atualiza_form")
     })
+    
 }
 
 export default registrarEventosCadastro;
