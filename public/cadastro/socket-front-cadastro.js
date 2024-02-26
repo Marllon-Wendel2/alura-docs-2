@@ -16,12 +16,6 @@ socket.on("cadastro_erro", () => {
 socket.on("usuario_ja_existente", () => {
     alert ("Usuário já existe!!")
 })
-socket.on("atualiza_form", () => {
-    const form = document.getElementById("form-cadastro");
-    form["input-usuario"].value = ""
-    form["input-senha"].value = ""
-
-})
 
 
 
