@@ -1,6 +1,16 @@
+import { obterCookie } from "../utils/cookies.js";
 import { alertarERedirecionar, atualizaTextoEditor } from "./documento.js";
 
-const socket = io();
+const socket = io("/usuarios", {
+  auth: {
+    token: obterCookie("tokenJwt")
+  }
+});
+
+socket.on("connect_error", (erro) => {
+  alert(erro);
+  window.location.href = "/login/index.html";
+});
 
 function selecionarDocumento (nome) {
   socket.emit("selecionar_documento", nome, (texto) => {
@@ -16,9 +26,6 @@ function emitirExcliurDocumento (nome) {
   socket.emit("excluir_documento", nome)
 }
 
-//socket.on("texto_documento", (texto) => {
-  //atualizaTextoEditor(texto);
-//})
 
 socket.on("texto_editor_clientes", (texto) => {
   atualizaTextoEditor(texto);
