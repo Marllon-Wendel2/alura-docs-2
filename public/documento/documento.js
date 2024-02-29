@@ -10,7 +10,11 @@ const botaoExcluir =  document.getElementById("excluir-documento")
 
 tituloDocumento.textContent = nomeDocumento || "Documento Desconhecido"
 
-selecionarDocumento(nomeDocumento);
+function tratarAutorizacaoSucesso (payloadToken) {
+  selecionarDocumento({nomeDocumento, nomeUsuario: payloadToken.nomeUsuario});
+}
+
+
 
 textoEditor.addEventListener("keyup", () => {
   emitirTextoEditor({
@@ -29,8 +33,10 @@ function alertarERedirecionar(nome) {
     window.location.href = "/"
 }};
 
+
+
 botaoExcluir.addEventListener("click", () => {
   emitirExcliurDocumento(nomeDocumento)
 })
 
-export { atualizaTextoEditor, alertarERedirecionar };
+export { atualizaTextoEditor, alertarERedirecionar, tratarAutorizacaoSucesso };
