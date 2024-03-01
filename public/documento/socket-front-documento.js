@@ -1,5 +1,5 @@
 import { obterCookie } from "../utils/cookies.js";
-import { alertarERedirecionar, atualizaTextoEditor, tratarAutorizacaoSucesso } from "./documento.js";
+import { alertarERedirecionar, atualizaTextoEditor, atualizarInterface, tratarAutorizacaoSucesso } from "./documento.js";
 
 const socket = io("/usuarios", {
   auth: {
@@ -19,6 +19,13 @@ function selecionarDocumento (dadosEntrada) {
     atualizaTextoEditor(texto);
   });
 }
+
+socket.on("usuario_ja_no_documento", () => {
+  alert("Você já esta no documento em outra aba!");
+  window.location.href = "/";
+});
+
+socket.on("usuarios_no_documento", atualizarInterface)
 
 function emitirTextoEditor(dados) {
   socket.emit("texto_editor", dados);

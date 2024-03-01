@@ -6,12 +6,21 @@ const nomeDocumento = parametros.get("nome");
 
 const textoEditor = document.getElementById("editor-texto");
 const tituloDocumento = document.getElementById("titulo-documento");
-const botaoExcluir =  document.getElementById("excluir-documento")
+const botaoExcluir =  document.getElementById("excluir-documento");
+const listaUsuarios = document.getElementById("usuarios-conectados")
 
 tituloDocumento.textContent = nomeDocumento || "Documento Desconhecido"
 
 function tratarAutorizacaoSucesso (payloadToken) {
   selecionarDocumento({nomeDocumento, nomeUsuario: payloadToken.nomeUsuario});
+}
+
+function atualizarInterface (usuariosNoDocumento) {
+  listaUsuarios.innerHTML = ""
+
+  usuariosNoDocumento.forEach((usuario) => {
+    listaUsuarios.innerHTML +=  ` <li class="list-group-item">${usuario}</li>`
+  });
 }
 
 
@@ -39,4 +48,4 @@ botaoExcluir.addEventListener("click", () => {
   emitirExcliurDocumento(nomeDocumento)
 })
 
-export { atualizaTextoEditor, alertarERedirecionar, tratarAutorizacaoSucesso };
+export { atualizaTextoEditor, alertarERedirecionar, tratarAutorizacaoSucesso,atualizarInterface };
